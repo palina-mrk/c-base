@@ -27,6 +27,6 @@ make install
 
 - скомпилировать код приложения, пользуясь следующей командой:
 
-  ```
-  gcc weather.c  ./cJSON/cJSON/cJSON.c -lcurl
-  ```
+```
+gcc weather.c  ./cJSON/cJSON/cJSON.c -lcurl
+```
