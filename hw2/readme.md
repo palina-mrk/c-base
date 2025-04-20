@@ -9,9 +9,14 @@
 
 ```
 dnf install libcurl-devel
-```  
-- скачать следующий репозиторий с гитхаб: `git@github.com:DaveGamble/cJSON.git`
-в поддиректорию cJSON
+```
+
+- скачать в поддиректорию cJSON репозиторий с гитхаб:
+
+```
+cd cJSON
+git clone https://github.com/DaveGamble/cJSON.git
+```
 
  - запустить в поддиректории JSON утилиту make:
 
