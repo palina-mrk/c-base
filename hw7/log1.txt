@@ -7,3 +7,5 @@ T 25-05-20 15:33:26.818134 4354 log1.txt:7: second log
 T 25-05-20 15:34:27.733405 4386 log1.txt:7: second log
 T 25-05-20 15:36:30.163890 4410 log1.txt:7: second log
 E 25-05-20 16:03:26.857369 4613 log1.txt:7: second log./a.out() [0x401d7b]./a.out() [0x401fc0]./a.out() [0x4020a7]/lib64/libc.so.6(+0x3248) [0x7faf72766248]/lib64/libc.so.6(__libc_start_main+0x8b) [0x7faf7276630b]./a.out() [0x401215]
+D 25-05-20 16:22:48.697951 4923 log1.txt:7: first log
+E 25-05-20 16:22:48.698975 4923 log1.txt:8: second log./a.out() [0x401d7b]./a.out() [0x401fc0]./a.out() [0x4020bb]/lib64/libc.so.6(+0x3248) [0x7f4f70893248]/lib64/libc.so.6(__libc_start_main+0x8b) [0x7f4f7089330b]./a.out() [0x401215]
