@@ -49,7 +49,7 @@ main(int argc, char *argv[]){
   for(i = 0; i < sb.st_size; i++)
     crc = crc32_tab[ (crc ^ addr[i]) & 0xFF] ^ (crc >> 8); 
 
-  printf("crc-sum: %u or 0x%X\n", (crc^~0U));
+  printf("crc-sum: %x\n", (crc^~0U));
   munmap(addr, sb.st_size);
   close(fd);
 
