@@ -124,18 +124,13 @@ main(int argc, char *argv[]){
  
   i = -1;
   while(++i < N){
-    j = -1;
-    printf("%s", p_arg[i]);
-    while(p_arg[i][++j]) // char*
-      printf("%s\n", p_arg[i][j]);
-
     k = pthread_create(&p_arr[i], NULL, fcn, (void*)&p_arg[i]); //char**
     if(k){
       printf("error in pthread_create()\n");
       exit(1);
     }
   }
-  printf(".\n");
+
   i = -1;
   while(++i < N){
     pthread_join(p_arr[i], (void**)&p_ans[i]);
@@ -151,13 +146,11 @@ main(int argc, char *argv[]){
     exit(1);
   }
 
-  printf(".\n");
   i = -1;
   while(++i < m){
-    fprintf(fp, f_ans[i]);
+    fprintf(fp,"%s", f_ans[i]);
   }
-  printf(".\n");
-/*
+
   i = -1;
   while(++i < m){
     free(f_names[i]);
@@ -167,7 +160,7 @@ main(int argc, char *argv[]){
   while(++i < N){
     free(p_arg[i]);
     free(p_ans[i]);
-  }*/
+  }
   free(p_arr);
   free(p_arg);
   free(p_ans);
@@ -178,17 +171,13 @@ main(int argc, char *argv[]){
 }
 
 void* fcn (void* arg){
- // char **fnames;// = arg;
   int N, i;
   char **ans;
-  //fnames = ((char***)arg)[0];
-///printf("in thread");
   N = 0;
   if (arg && ((char***)arg)[0])
     while(((char***)arg)[0][N])
-      ++N;  // N = count of filenames
+      ++N; 
 
-  printf("N = %d\n",N);
   if(!N)
     pthread_exit((void*)NULL);
 
@@ -198,15 +187,14 @@ void* fcn (void* arg){
     pthread_exit(NULL);
   }
 
-  //printf("iiii  %s   %s \n",((char***)arg)[0][0], ((char***)arg)[0][1]);
   i = -1;
   while(++i < N)
     ans[i] = map_file(((char***)arg)[0][i]);
 
   ans[N] = NULL;
 
- // pthread_exit( (void*)ans);
-  return ans;
+  pthread_exit( (void*)ans);
+ // return ans;
 }
 
 
@@ -231,7 +219,7 @@ char* map_file(char* path){
     printf("memory allocation error, file %s\n", path);
     pthread_exit(NULL);
   }
-  fd = open(path, O_RDWR);
+  fd = open(path, O_RDONLY);
   if (fd == -1){
     sprintf(err_str,"opening file error, file: %s\n", path);
     return err_str;
