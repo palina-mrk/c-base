@@ -9,10 +9,8 @@
 #include <ctype.h>
 #include <stdint.h>
 #include <limits.h>
-
-
-# define DEBUG 1 
-# define CUT { exit(EXIT_FAILURE); }
+#include <dirent.h>
+#include <pthread.h>
 
 
 int strings_counter(char* addr, long long int size, int* maxlen);
@@ -44,14 +42,171 @@ void sum_url_trafics(char** urls, int* url_lens,
                      char** url_summed, int* summed_lens,
                      int* sum_trafic, int* length);
 
+void* fcn(void* arg);
 
 int
 main(int argc, char *argv[]){
+  pthread_t *p_arr;
+  void* tmp;
+  char ***p_arg, ***p_ans;
+  char **f_names, **f_ans;
+  struct dirent **all_names; 
+  int i, j, k;
+  int N; // number of threads
+  int m; // number of files
+  FILE *fp;
+  if(argc != 3){
+    printf("using: %s <directory> <number of threads>\n",argv[0]);
+    exit(1);
+  }
 
-  char* r1 = map_file(argv[1]);
-  printf("%s", r1);
-  free(r1);
+  N = atoi(argv[2]);
+  m = scandir(argv[1], &all_names, 0, 0);
+  if(N <= 0){
+    printf("error of reading number of threads:\n"
+           "N = %d, but it must be int > 0\n", N);
+    exit(1);
+  }
+  if(m < 0){
+    printf("error of reading the directory %s\n", argv[1]);
+    exit(1);
+  }
+  f_names = calloc(sizeof(char*), m);
+  if(!f_names){
+    printf("memory allocation error\n");
+    exit(1);
+  }
+  j = -1;
+  i = -1;
+  while(++i < m){
+    if(all_names[i]->d_type != DT_REG){
+      free(all_names[i]);
+      continue;
+    }
+    ++j;
+    f_names[j] = calloc(sizeof(char), strlen(all_names[i]->d_name) + 2);
+    strcpy(f_names[j], all_names[i]->d_name);
+    free(all_names[i]);
+  }
+  free(all_names);
+  m = j+1;
+  if(m <= 0){
+    printf("error: no regular files in the directory %s\n", argv[1]);
+    free(f_names);
+    exit(1);
+  }
+  if(N > m)
+    N = m;
+  p_arr = calloc(sizeof(pthread_t), N);
+  p_arg = calloc(sizeof(char**), N);
+  p_ans = calloc(sizeof(char**), N);
+  f_ans = calloc(sizeof(char*), m);
+  if(!p_arr || !p_arg || !p_ans || !f_ans){
+    printf("memory allocation error\n");
+    exit(1);
+  }
+
+  i = -1;
+  while(++i < N){
+    p_arg[i] = calloc(sizeof(char*), (m - i - 1)/N + 2);
+    if(!p_arg[i]){
+      printf("memory allocation error\n");
+      exit(1);
+    }
+    
+    k = i;
+    while(k < m){
+      p_arg[i][k/N] = f_names[k];
+      k += N;
+    }
+    p_arg[i][k/N] = NULL;
+  }
+ 
+  i = -1;
+  while(++i < N){
+    j = -1;
+    printf("%s", p_arg[i]);
+    while(p_arg[i][++j]) // char*
+      printf("%s\n", p_arg[i][j]);
+
+    k = pthread_create(&p_arr[i], NULL, fcn, (void*)&p_arg[i]); //char**
+    if(k){
+      printf("error in pthread_create()\n");
+      exit(1);
+    }
+  }
+  printf(".\n");
+  i = -1;
+  while(++i < N){
+    pthread_join(p_arr[i], (void**)&p_ans[i]);
+    k = -1;
+    while(p_ans[i][++k]){
+      f_ans[k*N + i] = p_ans[i][k];
+    }
+  }
+
+  fp = fopen("reply.txt","w");
+  if(!fp){
+    printf("error: opening file to write the response is failed\n");
+    exit(1);
+  }
+
+  printf(".\n");
+  i = -1;
+  while(++i < m){
+    fprintf(fp, f_ans[i]);
+  }
+  printf(".\n");
+/*
+  i = -1;
+  while(++i < m){
+    free(f_names[i]);
+    free(f_ans[i]);
+  }
+  i = -1;
+  while(++i < N){
+    free(p_arg[i]);
+    free(p_ans[i]);
+  }*/
+  free(p_arr);
+  free(p_arg);
+  free(p_ans);
+  free(f_ans);
+  free(f_names);
+  fclose(fp);
   return 0;
+}
+
+void* fcn (void* arg){
+ // char **fnames;// = arg;
+  int N, i;
+  char **ans;
+  //fnames = ((char***)arg)[0];
+///printf("in thread");
+  N = 0;
+  if (arg && ((char***)arg)[0])
+    while(((char***)arg)[0][N])
+      ++N;  // N = count of filenames
+
+  printf("N = %d\n",N);
+  if(!N)
+    pthread_exit((void*)NULL);
+
+  ans = calloc(sizeof(char*), N + 1);
+  if(!ans){
+    printf("memory allocation error\n");
+    pthread_exit(NULL);
+  }
+
+  //printf("iiii  %s   %s \n",((char***)arg)[0][0], ((char***)arg)[0][1]);
+  i = -1;
+  while(++i < N)
+    ans[i] = map_file(((char***)arg)[0][i]);
+
+  ans[N] = NULL;
+
+ // pthread_exit( (void*)ans);
+  return ans;
 }
 
 
@@ -68,89 +223,111 @@ char* map_file(char* path){
   int r_count10[10], u_trafic10[10], sum_trafic;
   long int all_bytes, all_refs;
   int N;
-  char *result;
   int offset = 0;
+  char *err_str, *result;
 
+  err_str = calloc(sizeof(char), strlen(path) + 1000);
+  if(!err_str){
+    printf("memory allocation error, file %s\n", path);
+    pthread_exit(NULL);
+  }
   fd = open(path, O_RDWR);
   if (fd == -1){
-    printf("opening file error, file: %s\n", path);
-    CUT 
+    sprintf(err_str,"opening file error, file: %s\n", path);
+    return err_str;
   }
   if (stat(path, &sb) == -1){ /* To obtain file size */
-    printf("error of initializing struct stat for file %s\n", path);
-    CUT
+    sprintf(err_str,"error of initializing struct stat for file %s\n", path);
+    return err_str;
   }
 
   addr = mmap(NULL, sb.st_size , PROT_READ
                     ,MAP_SHARED , fd, 0);
   if (addr == MAP_FAILED){
-    printf("error of mapping memory by mmap for file %s\n", path);
-    CUT
+    sprintf(err_str,"error of mapping memory by mmap for file %s\n", path);
+    return err_str;
   }
 
   str_count = strings_counter(addr, sb.st_size, &max_strlen);
-  result = calloc(sizeof(char), max_strlen*20 + 20000);
-  offset += sprintf(result + offset, "results for file: %s\n", path);
   urls = calloc(sizeof(char*), str_count + 1);
   refs = calloc(sizeof(char*), str_count + 1);
   ref_lens = calloc(sizeof(int), str_count + 1);
   counted_lens = calloc(sizeof(int), str_count + 1);
   url_lens = calloc(sizeof(int), str_count + 1);
   trafics = calloc(sizeof(int), str_count + 1);
+  r_counted = calloc(sizeof(char*), str_count + 1);
+  r_count = calloc(sizeof(int), str_count + 1); 
+  u_summed = calloc(sizeof(char*), str_count + 1);
+  t_sums = calloc(sizeof(int), str_count + 1); 
+  result = calloc(sizeof(char), strlen(path) + 20*max_strlen + 500);
+  if(!result || !urls || !refs || !ref_lens 
+      || !counted_lens || !url_lens || !trafics
+      || !r_counted || !r_count){
+    free(urls);
+    free(refs);
+    free(ref_lens);
+    free(counted_lens);
+    free(url_lens);
+    free(trafics);
+    free(r_counted);
+    free(r_count);
+    free(result);
+    munmap(addr, sb.st_size);
+    close(fd);
+    sprintf(err_str,"error of memory allocation in file %s\n", path);
+    return err_str;
+  }
+
   url_ref_traf_init(addr, sb.st_size, urls, url_lens,
                                       refs, ref_lens, 
                                       trafics, str_count, max_strlen);
-  r_counted = calloc(sizeof(char*), str_count + 1);
-  r_count = calloc(sizeof(int), str_count + 1); 
   refs_counter(refs, ref_lens, str_count
               ,r_counted, counted_lens, r_count, &r_num);
   N = 10;
   all_refs = take_first_N(r_counted, r_count, r_num
                  , refs10, r_count10, &N);
-#if(DEBUG)
-  i = -1;
-  offset += 
-        sprintf(result + offset,
-                "count of all references:%lld\n",all_refs);
+
+  offset += sprintf(result + offset, "**********response for file %s:\n", path);
+  offset += sprintf(result + offset,
+                    "sum of all reference frequences: %lld\n",all_refs);
   if(N < 10)
-   offset +=
-        sprintf(result + offset, 
-                "count of different references is only %d\n", N);  
-  offset += 
-        sprintf(result + offset, "%d mostly frequent refs:\n", N);
-  while(++i < N){
-    offset += sprintf(result + offset, "№%d:\n   reference:%s"
-               "\n       count:%d\n", i + 1, refs10[i], r_count10[i]);
-  }
-#endif
-  u_summed = calloc(sizeof(char*), str_count + 1);
-  t_sums = calloc(sizeof(int), str_count + 1); 
+    offset += sprintf(result + offset,
+                    "number of all references less than 10,\n");
+
+  offset += sprintf( result + offset,
+                    "%d mostly frequently occuring references:\n", N);
+  i = -1;
+  while(++i < N)
+    offset += sprintf(result + offset, 
+                      "            №%d:"
+                    "\n   reference:%s,"
+                    "\n      occurs %d times\n", i, refs10[i], r_count10[i]);
+
   sum_url_trafics(urls, url_lens,
                   trafics , str_count,
                   u_summed, counted_lens,
                   t_sums, &u_num);
   N = 10;
   all_bytes = take_first_N(u_summed, t_sums, u_num
-                 , urls10, u_trafic10, &N);
+                          , urls10, u_trafic10, &N);
   
-#if(DEBUG)
   i = -1;
   offset += sprintf(result + offset, 
-                    "all sended traffic:%lld bytes\n",all_bytes);
+                    "sum of all sended traffic:%lld\n",all_bytes);
   if(N < 10)
-    offset += 
-          sprintf(result + offset, 
-                  "count of different urls is only %d\n", N);  
-  offset += 
-          sprintf(result + offset,
-                  "%d urls with maximal traffices:\n", N);
-  while(++i < N){
-    offset += 
-          sprintf(result + offset,
-                  "№%d:\n      url:%s,"
-                      "\n  traffic:%d\n", i+1, urls10[i], u_trafic10[i]);
-  }
-#endif
+    offset += sprintf(result + offset,
+                    "number of all urls is less than 10,\n");
+
+  offset += sprintf( result + offset,
+                    "%d urls with the largest traffic:\n", N);
+  i = -1;
+  while(++i < N)
+    offset += sprintf(result + offset, 
+                      "            №%d:"
+                    "\n            url:%s,"
+                    "\n     was sended %d bytes\n"
+                     , i, urls10[i], u_trafic10[i]);
+  
   
   url_ref_uninit(urls, refs, str_count);
   free(urls);
@@ -161,6 +338,7 @@ char* map_file(char* path){
   free(trafics);
   free(r_counted);
   free(r_count);
+  free(err_str);
   munmap(addr, sb.st_size);
   close(fd);
   return result;
@@ -202,7 +380,10 @@ void url_ref_traf_init(char* addr
   char* tmp = malloc(maxlen + 1);
   int i, spaces, offset, w_begin;
   //printf("%d srts, maxlen: %d\n", count, maxlen);
-
+  if(!tmp){
+    printf("memory allocation error\n");
+    pthread_exit(NULL);
+  }
   buff = addr;
   offset = -1;
   i = 0;
@@ -367,6 +548,7 @@ long long int take_first_N(char** fields, int* sort_by, int r_num
     byN[i] = INT_MIN;
   }
   i = -1;
+ // printf("sum: %ld, r_num:%d\n", sum, r_num);
 
   while(++i < r_num){
     sum += (long long int)sort_by[i];
@@ -375,7 +557,12 @@ long long int take_first_N(char** fields, int* sort_by, int r_num
   }
   if(i < *N)
     *N = i;
-  return sum;
+ /* printf("sum: %ld\n", sum);
+  i = -1;
+  while(++i < N)
+    printf("%d: field:%s, by:%d\n", i, fields[i], byN[i]);
+ */
+ return sum;
 }
 
 
