@@ -1,7 +1,7 @@
-#define _LARGEFILE64_SOURCE
 #define _GNU_SOURCE
            #define _FILE_OFFSET_BITS 64
-#include <fcntl.h>
+           #include <fcntl.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/mman.h>
@@ -59,6 +59,7 @@ main(int argc, char *argv[]){
   int N; // number of threads
   int m; // number of files
   FILE *fp;
+  int dirfd;
   if(argc != 3){
     printf("using: %s <directory> <number of threads>\n",argv[0]);
     exit(1);
@@ -110,6 +111,11 @@ main(int argc, char *argv[]){
     exit(1);
   }
 
+  dirfd = open(argv[1], O_PATH);
+  if(!dirfd){
+    printf("error of opening the directory %s\n", argv[1]);
+    exit(1);
+  }
   i = -1;
   while(++i < N){
     p_arg[i] = calloc(sizeof(int), (m - i - 1)/N + 2);
@@ -117,10 +123,9 @@ main(int argc, char *argv[]){
       printf("memory allocation error\n");
       exit(1);
     }
-    
     k = i;
     while(k < m){
-      p_arg[i][k/N] = open(f_names[k], O_RDONLY | O_LARGEFILE);
+      p_arg[i][k/N] = openat(dirfd, f_names[k], O_RDONLY | O_LARGEFILE);
       if(p_arg[i][k/N] < 0){
         printf("file opening error, function: open(), file: %s\n", f_names[k]);
         exit(1);
@@ -148,6 +153,7 @@ main(int argc, char *argv[]){
       close(p_arg[i][k/N]);
     }
   }
+  close(dirfd);
 
   fp = fopen("reply.txt","w");
   if(!fp){
