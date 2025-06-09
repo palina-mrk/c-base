@@ -1,11 +1,13 @@
---- ./clib/deps/hash/hash.c	2025-06-09 16:14:36.982981337 +0300
-+++ ./clib/deps/hash/hash.c	2025-06-09 16:14:23.975208547 +0300
-@@ -15,6 +15,8 @@
+--- ./clib/deps/hash/hash.c	2025-06-09 16:39:56.019316983 +0300
++++ ./clib/deps/hash/hash.c	2025-06-09 16:35:50.960649996 +0300
+@@ -15,6 +15,10 @@
  hash_set(hash_t *self, char *key, void *val) {
    int ret;
    khiter_t k = kh_put(ptr, self, key, &ret);
-+  free(key);
-+  key = NULL;
++  if(!ret) {
++    free(key);
++    key = NULL;
++  }
    kh_value(self, k) = val;
  }
  

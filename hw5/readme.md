@@ -12,7 +12,7 @@ patch < difference.diff
 
 ![01](./pic1.png)
 
-- изменение - добавление двух строк (free(key) и key= NULL) в файл clib/deps/hash/hash.c:
+- изменение - добавление трёх строк (`if(!ret) {free(key); и key= NULL; }` ) в файл clib/deps/hash/hash.c:
 
 ![02](./pic2.png)
 
