@@ -368,6 +368,9 @@ int strings_counter(char* addr, long long int size, int* maxlen){
   
   if(addr[i - 1] != '\n')
     ++counter;
+  if(*maxlen < curlen)
+    *maxlen = curlen;
+
   return counter;
 }
 
@@ -383,6 +386,7 @@ void url_ref_traf_init(char* addr
   char* buff, *end = addr + size - 10;
   char* tmp = malloc(maxlen + 1);
   int i, spaces, offset, w_begin;
+  int ENDSTR;
   //printf("%d srts, maxlen: %d\n", count, maxlen);
   if(!tmp){
     printf("memory allocation error\n");
@@ -393,53 +397,61 @@ void url_ref_traf_init(char* addr
   i = 0;
   do{  // buff[offset] = '\n'
     buff = buff + (offset + 1);
-
+    ENDSTR = 0;
     //buff = начало очередной строчки
     spaces = 0;
     offset = 0;
     // отсчитываем 6 пробелов
-    while (spaces < 6 && buff[offset] != '\n')
+    while (spaces < 6 && !(ENDSTR = (buff[offset] == '\n')))
       spaces += (buff[offset++] == ' ');
-    if(buff[offset] == '\n')
+    if(ENDSTR)
       continue;
 
     w_begin = offset;
     // доходим до след. пробела
-    while (spaces < 7 && buff[offset] != '\n')
+    while (spaces < 7 && !(ENDSTR = (buff[offset] == '\n')))
+   // while (spaces < 7 && buff[offset] != '\n')
       spaces += (buff[offset++] == ' ');
-    if(buff[offset] == '\n')
+    // считываем 7-е поле в url
+    if(offset + ENDSTR > w_begin + 1){
+      urls[i] = calloc(sizeof(char), offset - w_begin + ENDSTR);
+      strncpy(urls[i],&buff[w_begin], offset - w_begin - 1 + ENDSTR);
+      url_lens[i] = offset - w_begin + ENDSTR;
+    }
+    if(ENDSTR)
       continue;
     
-    // считываем 7-е поле в url
-    urls[i] = calloc(sizeof(char), offset - w_begin);
-    strncpy(urls[i],&buff[w_begin], offset - w_begin - 1);
-    url_lens[i] = offset - w_begin;
-
     // считываем 9-е поле в bytes
-    while (spaces < 9 && buff[offset] != '\n')
+    while (spaces < 9 && !(ENDSTR = (buff[offset] == '\n')))
+    //while (spaces < 9 && buff[offset] != '\n')
       spaces += (buff[offset++] == ' ');
-    if(buff[offset] == '\n')
+    if(ENDSTR)
       continue;
     w_begin = offset;
-    while (spaces < 10 && buff[offset] != '\n')
+    while (spaces < 10 && !(ENDSTR = (buff[offset] == '\n')))
+   // while (spaces < 10 && buff[offset] != '\n')
       spaces += (buff[offset++] == ' ');
-    if(buff[offset] == '\n')
+    if(offset + ENDSTR > w_begin + 1){
+      strncpy(tmp, &buff[w_begin], offset - w_begin - 1 + ENDSTR);
+      tmp[offset - w_begin + ENDSTR] = '\0';
+      bytes[i] = atoi(tmp);
+    }
+    if(ENDSTR)
       continue;
-    strncpy(tmp, &buff[w_begin], offset - w_begin - 1);
-    tmp[offset - w_begin] = '\0';
-    bytes[i] = atoi(tmp);
 
     w_begin = offset + 1;
-    while (spaces < 11 && buff[offset] != '\n')
+    while (spaces < 11 && !(ENDSTR = (buff[offset] == '\n')))
+    //while (spaces < 11 && buff[offset] != '\n')
       spaces += (buff[offset++] == ' ');
-    if(buff[offset] == '\n')
+    if(offset + ENDSTR > w_begin + 2){
+      refs[i] = calloc(sizeof(char),  offset - w_begin - 1 + ENDSTR);
+      strncpy(refs[i], &buff[w_begin], offset - w_begin - 2 + ENDSTR);
+      ref_lens[i] = offset - w_begin - 2 + ENDSTR;
+    }
+    if(ENDSTR)
       continue;
-    
-    refs[i] = calloc(sizeof(char),  offset - w_begin - 2);
-    strncpy(refs[i], &buff[w_begin], offset - w_begin - 2);
-    ref_lens[i] = offset - w_begin - 2;
     if(i + 1 != count)
-      while(buff[offset++] != '\n');
+      while(!(ENDSTR = (buff[++offset] == '\n')));
   } while (++i < count);
   
   free(tmp);
