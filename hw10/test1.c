@@ -162,6 +162,7 @@ main(int argc, char *argv[]){
   }
 
   i = -1;
+  fprintf(fp,"***************scanning files in directory %s\n", argv[1]);
   while(++i < m){
     fprintf(fp,"****************response for file %s\n",f_names[i]);
     fprintf(fp,"%s", f_ans[i]);
@@ -305,7 +306,7 @@ char* map_file(int fd){
     offset += sprintf(result + offset, 
                       "            №%d:"
                     "\n   reference:%s,"
-                    "\n      occurs %d times\n", i, refs10[i], r_count10[i]);
+                    "\n      occurs %d times\n", i+1, refs10[i], r_count10[i]);
 
   sum_url_trafics(urls, url_lens,
                   trafics , str_count,
@@ -330,7 +331,7 @@ char* map_file(int fd){
                       "            №%d:"
                     "\n            url:%s,"
                     "\n     was sended %d bytes\n"
-                     , i, urls10[i], u_trafic10[i]);
+                     , i+1, urls10[i], u_trafic10[i]);
   
   
   url_ref_uninit(urls, refs, str_count);

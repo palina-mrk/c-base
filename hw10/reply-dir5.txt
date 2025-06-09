@@ -1,0 +1,196 @@
+***************scanning files in directory dir5
+****************response for file access.log.4
+sum of all reference frequences: 264022
+10 mostly frequently occuring references:
+            №1:
+   reference:-,
+      occurs 110389 times
+            №2:
+   reference:https://www.google.com/,
+      occurs 14782 times
+            №3:
+   reference:https://yandex.ru/,
+      occurs 3158 times
+            №4:
+   reference:https://baneks.site/best/,
+      occurs 3012 times
+            №5:
+   reference:https://www.google.ru/,
+      occurs 2846 times
+            №6:
+   reference:https://baneks.site/new/,
+      occurs 1190 times
+            №7:
+   reference:https://baneks.site/best/?p=2,
+      occurs 992 times
+            №8:
+   reference:https://baneks.site/,
+      occurs 702 times
+            №9:
+   reference:https://baneks.site/best/?p=3,
+      occurs 668 times
+            №10:
+   reference:https://www.google.com.ua/,
+      occurs 610 times
+sum of all sended traffic:5543263822
+10 urls with the largest traffic:
+            №1:
+            url:/sitemap.xml,
+     was sended 212175948 bytes
+            №2:
+            url:/,
+     was sended 138862526 bytes
+            №3:
+            url:/%D0%B8%D0%B4%D1%91%D1%82-%D0%B3%D1%80%D1%83%D0%B7%D0%B8%D0%BD-%D1%81-%D0%B1%D1%83%D0%BC%D0%B5%D1%80%D0%B0%D0%BD%D0%B3%D0%BE%D0%BC-%D0%B2%D0%B5%D1%81%D1%8C-%D0%B2-%D1%81%D0%B8%D0%BD%D1%8F%D0%BA%D0%B0%D1%85-%D0%B8-%D1%81%D1%81%D0%B0%D0%B4%D0%B8%D0%BD%D0%B0%D1%85/?p=2,
+     was sended 48943258 bytes
+            №4:
+            url:/rss/,
+     was sended 41142712 bytes
+            №5:
+            url:/best/,
+     was sended 38187848 bytes
+            №6:
+            url:/new/,
+     was sended 20723034 bytes
+            №7:
+            url:/%D0%B4%D0%B0-%D0%B0%D0%BB%D1%91-%D0%B4%D0%B0-%D0%B4%D0%B0-%D0%BD%D1%83-%D0%BA%D0%B0%D0%BA-%D1%82%D0%B0%D0%BC-%D1%81-%D0%B4%D0%B5%D0%BD%D1%8C%D0%B3%D0%B0%D0%BC%D0%B8/,
+     was sended 19114886 bytes
+            №8:
+            url:/%D0%B6%D0%B5%D0%BD%D1%89%D0%B8%D0%BD%D0%B0-%D0%B8-%D0%B5%D1%91-%D0%BB%D1%8E%D0%B1%D0%BE%D0%B2%D0%BD%D0%B8%D0%BA-%D0%BD%D0%B0%D1%85%D0%BE%D0%B4%D0%B8%D0%BB%D0%B8%D1%81%D1%8C-%D0%B2-%D0%B4%D0%BE%D0%BC%D0%B5-%D0%BF%D0%BE%D0%BA%D0%B0-%D0%BC%D1%83%D0%B6/,
+     was sended 17569052 bytes
+            №9:
+            url:/%D1%81%D1%82%D0%BE%D1%8F%D1%82-%D0%BF%D0%B0%D1%81%D1%81%D0%B0%D0%B6%D0%B8%D1%80%D1%8B-%D0%B2-%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82%D1%83-%D0%BF%D0%BE%D1%81%D0%B0%D0%B4%D0%BE%D1%87%D0%BD%D1%8B%D0%B9-%D0%B4%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80/?p=4,
+     was sended 11315834 bytes
+            №10:
+            url:/%D0%BD%D0%B5%D0%BC%D0%BE%D0%B9-%D0%BF%D0%B5%D1%82%D1%83%D1%85-%D0%BF%D0%BE-%D1%83%D1%82%D1%80%D0%B0%D0%BC/,
+     was sended 10832972 bytes
+****************response for file access.log.3
+sum of all reference frequences: 3349402
+10 mostly frequently occuring references:
+            №1:
+   reference:-,
+      occurs 1625613 times
+            №2:
+   reference:https://www.google.com/,
+      occurs 270466 times
+            №3:
+   reference:https://yandex.ru/,
+      occurs 58198 times
+            №4:
+   reference:https://www.google.ru/,
+      occurs 55838 times
+            №5:
+   reference:https://baneks.site/best/,
+      occurs 47940 times
+            №6:
+   reference:https://baneks.site/best/?p=2,
+      occurs 16348 times
+            №7:
+   reference:https://baneks.site/new/,
+      occurs 13966 times
+            №8:
+   reference:https://baneks.site/,
+      occurs 12096 times
+            №9:
+   reference:https://baneks.site/best/?p=3,
+      occurs 11788 times
+            №10:
+   reference:https://www.google.com.ua/,
+      occurs 11286 times
+sum of all sended traffic:79419820800
+10 urls with the largest traffic:
+            №1:
+            url:/sitemap.xml,
+     was sended 1015415846 bytes
+            №2:
+            url:/best/,
+     was sended 923126400 bytes
+            №3:
+            url:/rss/,
+     was sended 614611020 bytes
+            №4:
+            url:/%D1%81%D1%82%D0%BE%D1%8F%D1%82-%D0%BF%D0%B0%D1%81%D1%81%D0%B0%D0%B6%D0%B8%D1%80%D1%8B-%D0%B2-%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82%D1%83-%D0%BF%D0%BE%D1%81%D0%B0%D0%B4%D0%BE%D1%87%D0%BD%D1%8B%D0%B9-%D0%B4%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80/?p=4,
+     was sended 371590320 bytes
+            №5:
+            url:/new/,
+     was sended 305355514 bytes
+            №6:
+            url:/%D0%B6%D0%B5%D0%BD%D1%89%D0%B8%D0%BD%D0%B0-%D0%B8-%D0%B5%D1%91-%D0%BB%D1%8E%D0%B1%D0%BE%D0%B2%D0%BD%D0%B8%D0%BA-%D0%BD%D0%B0%D1%85%D0%BE%D0%B4%D0%B8%D0%BB%D0%B8%D1%81%D1%8C-%D0%B2-%D0%B4%D0%BE%D0%BC%D0%B5-%D0%BF%D0%BE%D0%BA%D0%B0-%D0%BC%D1%83%D0%B6/,
+     was sended 274805154 bytes
+            №7:
+            url:/%D0%B8%D0%B4%D1%91%D1%82-%D0%B3%D1%80%D1%83%D0%B7%D0%B8%D0%BD-%D1%81-%D0%B1%D1%83%D0%BC%D0%B5%D1%80%D0%B0%D0%BD%D0%B3%D0%BE%D0%BC-%D0%B2%D0%B5%D1%81%D1%8C-%D0%B2-%D1%81%D0%B8%D0%BD%D1%8F%D0%BA%D0%B0%D1%85-%D0%B8-%D1%81%D1%81%D0%B0%D0%B4%D0%B8%D0%BD%D0%B0%D1%85/?p=2,
+     was sended 243231834 bytes
+            №8:
+            url:/%D0%B4%D0%B0-%D0%B0%D0%BB%D1%91-%D0%B4%D0%B0-%D0%B4%D0%B0-%D0%BD%D1%83-%D0%BA%D0%B0%D0%BA-%D1%82%D0%B0%D0%BC-%D1%81-%D0%B4%D0%B5%D0%BD%D1%8C%D0%B3%D0%B0%D0%BC%D0%B8/,
+     was sended 207926532 bytes
+            №9:
+            url:/-%D0%B4%D0%B5%D0%B2%D1%83%D1%88%D0%BA%D0%B0-%D0%B2%D0%B0%D1%88%D0%B8-%D1%80%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D0%B8-%D1%81%D0%BB%D1%83%D1%87%D0%B0%D0%B9%D0%BD%D0%BE-%D0%BD%D0%B5-%D0%BE%D1%85%D0%BE%D1%82%D0%BD%D0%B8%D0%BA%D0%B8-%D0%BD%D0%B5%D1%82/,
+     was sended 199941466 bytes
+            №10:
+            url:/best/?p=2,
+     was sended 188488052 bytes
+****************response for file access.log.2
+sum of all reference frequences: 3617200
+10 mostly frequently occuring references:
+            №1:
+   reference:-,
+      occurs 1428247 times
+            №2:
+   reference:https://www.google.com/,
+      occurs 351006 times
+            №3:
+   reference:https://www.google.ru/,
+      occurs 69524 times
+            №4:
+   reference:https://yandex.ru/,
+      occurs 68902 times
+            №5:
+   reference:https://baneks.site/best/,
+      occurs 57198 times
+            №6:
+   reference:https://baneks.site/best/?p=2,
+      occurs 19254 times
+            №7:
+   reference:https://baneks.site/new/,
+      occurs 19224 times
+            №8:
+   reference:https://baneks.site/best/?p=3,
+      occurs 14318 times
+            №9:
+   reference:https://www.google.com.ua/,
+      occurs 13706 times
+            №10:
+   reference:http://yandex.ru/searchapp?text=,
+      occurs 11648 times
+sum of all sended traffic:73078085408
+10 urls with the largest traffic:
+            №1:
+            url:/sitemap.xml,
+     was sended 1015500992 bytes
+            №2:
+            url:/best/,
+     was sended 888889118 bytes
+            №3:
+            url:/rss/,
+     was sended 701874960 bytes
+            №4:
+            url:/%D1%81%D1%82%D0%BE%D1%8F%D1%82-%D0%BF%D0%B0%D1%81%D1%81%D0%B0%D0%B6%D0%B8%D1%80%D1%8B-%D0%B2-%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82%D1%83-%D0%BF%D0%BE%D1%81%D0%B0%D0%B4%D0%BE%D1%87%D0%BD%D1%8B%D0%B9-%D0%B4%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80/?p=4,
+     was sended 455062312 bytes
+            №5:
+            url:/%D0%BF%D1%80%D0%B8%D0%B5%D1%85%D0%B0%D0%BB%D0%B0-%D0%B1%D0%B0%D0%B1%D0%BA%D0%B0-%D0%B2-%D0%90%D0%BC%D0%B5%D1%80%D0%B8%D0%BA%D1%83-%D0%BF%D0%BE-%D0%B0%D0%BD%D0%B3%D0%BB%D0%B8%D0%B9%D1%81%D0%BA%D0%B8-%D0%BD%D0%B8-%D1%81%D0%BB%D0%BE%D0%B2%D0%B0-%D0%B8/,
+     was sended 448443670 bytes
+            №6:
+            url:/new/,
+     was sended 300732852 bytes
+            №7:
+            url:/%D0%B6%D0%B5%D0%BD%D1%89%D0%B8%D0%BD%D0%B0-%D0%B8-%D0%B5%D1%91-%D0%BB%D1%8E%D0%B1%D0%BE%D0%B2%D0%BD%D0%B8%D0%BA-%D0%BD%D0%B0%D1%85%D0%BE%D0%B4%D0%B8%D0%BB%D0%B8%D1%81%D1%8C-%D0%B2-%D0%B4%D0%BE%D0%BC%D0%B5-%D0%BF%D0%BE%D0%BA%D0%B0-%D0%BC%D1%83%D0%B6/,
+     was sended 294612208 bytes
+            №8:
+            url:/%D0%B8%D0%B4%D1%91%D1%82-%D0%B3%D1%80%D1%83%D0%B7%D0%B8%D0%BD-%D1%81-%D0%B1%D1%83%D0%BC%D0%B5%D1%80%D0%B0%D0%BD%D0%B3%D0%BE%D0%BC-%D0%B2%D0%B5%D1%81%D1%8C-%D0%B2-%D1%81%D0%B8%D0%BD%D1%8F%D0%BA%D0%B0%D1%85-%D0%B8-%D1%81%D1%81%D0%B0%D0%B4%D0%B8%D0%BD%D0%B0%D1%85/?p=2,
+     was sended 274681232 bytes
+            №9:
+            url:/-%D0%B4%D0%B5%D0%B2%D1%83%D1%88%D0%BA%D0%B0-%D0%B2%D0%B0%D1%88%D0%B8-%D1%80%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D0%B8-%D1%81%D0%BB%D1%83%D1%87%D0%B0%D0%B9%D0%BD%D0%BE-%D0%BD%D0%B5-%D0%BE%D1%85%D0%BE%D1%82%D0%BD%D0%B8%D0%BA%D0%B8-%D0%BD%D0%B5%D1%82/,
+     was sended 210755268 bytes
+            №10:
+            url:/%D0%BC%D1%83%D0%B6%D1%87%D0%B8%D0%BD%D1%83-%D1%81%D0%BF%D1%80%D0%B0%D1%88%D0%B8%D0%B2%D0%B0%D1%8E%D1%82-%D1%87%D1%82%D0%BE-%D0%B2%D1%8B-%D0%BB%D1%8E%D0%B1%D0%B8%D1%82%D0%B5-%D0%BA%D1%83%D1%80%D0%B8%D1%82%D1%8C-%D0%BB%D1%8E%D0%B1%D0%BB%D1%8E/,
+     was sended 210423090 bytes
