@@ -10,8 +10,16 @@ patch < difference.diff
 
 - до патча:
 
-![01](./pic0.png)
+![01](./pic1.png)
+
+- изменение - добавление двух строк (free(...) и ...= NULL) в файл clib/deps/hash/hash.c:
+
+![02](./pic2.png)
+
+- применение патча:
+
+![04](./pic4.png)
 
 - после патча:
 
-![02](./pic3.png)
+![03](./pic3.png)
