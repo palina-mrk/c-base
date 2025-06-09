@@ -18,7 +18,7 @@ patch < difference.diff
 
 - применение патча:
 
-![04](./pic4.png)
+![04](./pic5.png)
 
 - после патча:
 
